@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ModulesManagerService } from './../../../../core/services/module-manager.service';
 
 @Component({
   selector: 'app-church-events',
   templateUrl: './church-events.component.html',
-  styleUrls: ['./church-events.component.scss']
+  styleUrls: ['./church-events.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChurchEventsComponent implements OnInit {
 

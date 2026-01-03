@@ -1,0 +1,25 @@
+<div class="body">
+    <div
+        class="day"
+        *ngFor="let day of calendarCells$ | async"
+        [attr.data-id]="day.id"
+        [attr.data-day]="day.nameOfDay"
+        [class.today]="day.id === today"
+    >
+        <div class="label">
+            <div class="number">{{ day.date | date:'d' }}</div>
+            <div class="name">{{ day.nameOfDay }}</div>
+        </div>
+
+        <div class="content" *ngIf="(data$ | async) as data">
+            <ng-container
+                *ngFor="let event of data[day.id]"
+            >
+                <app-calendar-event
+                    *ngIf="event.show"
+                    [event]="event"
+                ></app-calendar-event>
+            </ng-container>
+        </div>
+    </div>
+</div>

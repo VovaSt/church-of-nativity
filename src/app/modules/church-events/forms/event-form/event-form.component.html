@@ -1,0 +1,169 @@
+<form
+    [formGroup]="eventForm"
+    (ngSubmit)="onSubmitForm()"
+    *ngIf="typePermissions$ | async as permissions"
+>
+    <mat-form-field class="form-group">
+        <mat-label>Тип</mat-label>
+        <mat-select
+            type="text"
+            id="type"
+            name="type"
+            formControlName="type"
+        >
+            <mat-option *ngFor="let type of types" [value]="type.type">
+                {{type.label}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="eventForm?.get('type')?.invalid && eventForm?.get('type')?.touched">
+            Потрібно вказати тип події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group" *ngIf="permissions['name']">
+        <mat-label>Назва</mat-label>
+        <input
+            matInput
+            type="text"
+            id="name"
+            name="name"
+            formControlName="name"
+            autocomplete="off"
+        >
+        <mat-error *ngIf="eventForm?.get('name')?.invalid && eventForm?.get('name')?.touched">
+            Потрібно вказати назву події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group
+        class="form-group small frequency"
+        name="frequency"
+        formControlName="frequency"
+        *ngIf="permissions['frequency']"
+    >
+        <mat-button-toggle value="once">разово</mat-button-toggle>
+        <mat-button-toggle value="regular">регулярно</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-form-field
+        *ngIf="eventForm.get('frequency').value === 'once' && permissions['date']"
+        class="form-group small"
+    >
+        <mat-label>Дата</mat-label>
+        <input
+            matInput
+            [matDatepicker]="datePicker"
+            id="date"
+            name="date"
+            formControlName="date"
+            autocomplete="off"
+        >
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker color="primary"></mat-datepicker>
+        <mat-error *ngIf="eventForm?.get('date')?.invalid && eventForm?.get('date')?.touched">
+            Потрібно вказати дату події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group
+        *ngIf="eventForm.get('frequency').value === 'regular' && permissions['days']"
+        class="form-group small days"
+        name="days"
+        [multiple]="true"
+        formControlName="days"
+    >
+        <mat-button-toggle value="0">пн</mat-button-toggle>
+        <mat-button-toggle value="1">вт</mat-button-toggle>
+        <mat-button-toggle value="2">ср</mat-button-toggle>
+        <mat-button-toggle value="3">чт</mat-button-toggle>
+        <mat-button-toggle value="4">пт</mat-button-toggle>
+        <mat-button-toggle value="5">сб</mat-button-toggle>
+        <mat-button-toggle value="6">нд</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-form-field class="form-group small" *ngIf="permissions['start']">
+        <mat-label>Початок</mat-label>
+        <input
+            matInput
+            type="time"
+            id="start"
+            name="start"
+            formControlName="start"
+        >
+        <mat-error *ngIf="eventForm?.get('start')?.invalid && eventForm?.get('start')?.touched">
+            Потрібно вказати час початку події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group small" *ngIf="permissions['finish']">
+        <mat-label>Кінець</mat-label>
+        <input
+            matInput
+            type="time"
+            id="finish"
+            name="finish"
+            formControlName="finish"
+        >
+        <mat-error *ngIf="eventForm?.get('finish')?.invalid && eventForm?.get('finish')?.touched">
+            Потрібно вказати час кінця події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group" *ngIf="permissions['place']">
+        <mat-label>Місце</mat-label>
+        <input type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            formControlName="place"
+            [matAutocomplete]="autoPlaces"
+        >
+        <mat-autocomplete #autoPlaces="matAutocomplete">
+          <mat-option *ngFor="let place of filteredPlaces$ | async" [value]="place">
+            {{place}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="eventForm?.get('name')?.invalid && eventForm?.get('name')?.touched">
+            Потрібно вказати місце події
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group" *ngIf="permissions['person']">
+        <mat-label>Відповідальний</mat-label>
+        <input
+            matInput
+            type="text"
+            id="person"
+            name="person"
+            formControlName="person"
+            autocomplete="off"
+        >
+    </mat-form-field>
+
+    <app-chips-input
+        *ngIf="permissions['preachers']"
+        title="Проповідники"
+        placeholder="Додати проповідника..."
+        [form]="eventForm"
+        [list]="preachers"
+        propertyName="preachers"
+    ></app-chips-input>
+
+    <app-chips-input
+        *ngIf="permissions['singers']"
+        title="Музичні гурти"
+        placeholder="Додати музичний гурт..."
+        [form]="eventForm"
+        [list]="singers"
+        propertyName="singers"
+    ></app-chips-input>
+
+    <app-chips-input
+        *ngIf="permissions['cars']"
+        title="Задіяні церковні автомобілі"
+        placeholder="Додати автомобіль..."
+        [form]="eventForm"
+        [list]="cars"
+        propertyName="cars"
+    ></app-chips-input>
+</form>

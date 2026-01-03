@@ -1,10 +1,14 @@
 @import "design-styles.scss";
 
 ._sub-page-bg {
-    background-image: linear-gradient(
-            0deg,
-            rgba(30, 30, 30, 0.4),
-            rgba(30, 30, 30, 0.4)
-        ),
-        url("https://camp-bethel.s3.amazonaws.com/backgrounds/schedule-bg.jpg");
+    background-color: transparent;
+    height: 87px;
+
+    @media screen and (max-width: 1024px) {
+        height: 75px;
+    }
+
+    @media screen and (max-width: 425px) {
+        height: 68px;
+    }
 }

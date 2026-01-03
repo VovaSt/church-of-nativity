@@ -8,7 +8,7 @@ import { ModulesManagerService } from '../../core/services/module-manager.servic
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Language } from '../../core/enums/language.enum';
 import { LanguageService } from '../../core/services/language.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -30,6 +30,11 @@ export class HeaderComponent implements OnInit {
     @ViewChild('langsMenuTrigger') langsMenuTrigger: MatMenuTrigger;
 
     @HostListener('window:scroll', ['$event']) onscroll() {
+        if (this.router.url === "/events") {
+            this.navbarColor = true;
+            return;
+        }
+
         if (window.innerWidth <= 1400) {
             this.navbarColor = window.scrollY > 30 ? true : false;
         } else {
@@ -43,7 +48,7 @@ export class HeaderComponent implements OnInit {
         private renderer: Renderer2,
         private cd: ChangeDetectorRef,
         private langService: LanguageService,
-        private router: Router
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -61,6 +66,13 @@ export class HeaderComponent implements OnInit {
 
         this.unsub.subs = this.langService.getLanguageObs()
             .subscribe(lang => this.currentLang = lang);
+
+        this.router.events.subscribe((val) => {
+            if (val instanceof NavigationEnd) {
+                this.navbarColor = val.url === "/events";
+                this.cd.markForCheck();
+            }
+        });
     }
 
     public linkAction(id: string) {

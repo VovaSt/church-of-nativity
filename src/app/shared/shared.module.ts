@@ -14,6 +14,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { VideoPopupComponent } from './components/video-popup/video-popup.component';
 import { DonateModalComponent } from './components/donate-modal/donate-modal.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { ChipsInputComponent } from './components/chips-input/chips-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +33,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         DonateButtonComponent,
         VideoPopupComponent,
         ImageLoaderDirective,
-        DonateModalComponent
+        DonateModalComponent,
+        ChipsInputComponent,
+        ErrorMessageComponent
     ],
     imports: [
         CommonModule,
@@ -29,7 +43,13 @@ import {MatTabsModule} from '@angular/material/tabs';
         IvyCarouselModule,
         MatButtonModule,
         MatDialogModule,
-        MatTabsModule
+        MatIconModule,
+        MatTabsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatChipsModule,
+        ReactiveFormsModule
     ],
     exports: [
         MatButtonToggleModule,
@@ -39,10 +59,21 @@ import {MatTabsModule} from '@angular/material/tabs';
         TranslateModule,
         MatExpansionModule,
         MatDialogModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatChipsModule,
+        MatSnackBarModule,
 
         PhotoCaruselComponent,
         DonateButtonComponent,
         VideoPopupComponent,
+        ChipsInputComponent,
+        ErrorMessageComponent,
 
         ImageLoaderDirective
     ],

@@ -1,0 +1,104 @@
+@import "design-styles.scss";
+
+.header {
+    max-width: 1024px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 16px;
+    padding: 16px;
+    border: 1px solid $gray-light;
+    background-color: $gray-light;
+    border-radius: 5px;
+    margin: 10px auto 0;
+
+    .week-controls {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        min-width: 360px;
+
+        .title {
+            text-align: center;
+            color: $blue-dark;
+            font-weight: bolder;
+            line-height: 1.5;
+            padding: 0 5px;
+            display: flex;
+
+            .divider {
+                padding: 0 5px;
+            }
+        }
+
+        .week-btn {
+            border: none;
+            background-color: transparent;
+            color: $blue-dark;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            img.reverse {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .button-controls {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+
+        .control-btn {
+            border: none;
+            background-color: transparent;
+            color: $blue-dark;
+            cursor: pointer;
+
+            .mat-icon {
+                transform: rotate(0deg);
+                transition: transform 0.3s;
+
+                &.rotated {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1025px) {
+        & {
+            margin: 0;
+            padding: 12px 8px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+
+            .button-controls {
+                padding: 0 6px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        & {
+            .week-controls {
+                min-width: unset;
+                flex: 5;
+
+                .week-btn {
+                    padding: 8px;
+                }
+
+                .title {
+                    flex-direction: column;
+
+                    .divider {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -13,6 +13,8 @@
 @import "https://fonts.googleapis.com/css?family=Material+Icons";
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 
+@import "design-styles.scss";
+
 $fontConfig: (
     display-4: mat-typography-level(112px, 112px, 300, "Roboto", -0.0134em),
     display-3: mat-typography-level(56px, 56px, 400, "Roboto", -0.0089em),
@@ -246,6 +248,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 .material-icons {
     font-size: 24px;
     font-family: "Material Icons", "Material Icons";
+    color: var(--primary-darker-color);
+
     .mat-badge-content {
         font-family: "Roboto";
     }
@@ -253,4 +257,87 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 .mat-dialog-container {
     background: #95ACBF;
+}
+
+.mat-tooltip {
+    font-size: 14px !important;
+}
+
+.mat-form-field,
+.mat-form-field .mat-form-field-label,
+.mat-form-field .mat-error {
+    letter-spacing: normal;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: $blue-dark;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label,
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: $blue-dark;
+}
+
+.mat-select-panel {
+    background: $white;
+
+    .mat-option {
+        color: $blue-dark;
+
+        &.mat-selected:not(.mat-option-multiple) {
+            background: #bfcdd944;
+            font-weight: bolder;
+        }
+
+        &:hover {
+            background: #bfcdd944;
+        }
+    }
+}
+
+.mat-select-value {
+    color: $blue-dark;
+}
+
+.mat-datepicker-toggle {
+    color: $blue-dark;
+}
+
+.mat-button-toggle-appearance-standard {
+    background-color: $gray-light;
+
+    &.mat-button-toggle-checked {
+        background-color: $blue-medium;
+    }
+}
+
+.mat-input-element[type=time]::after {
+    display: none;
+}
+
+.mat-autocomplete-panel {
+    background-color: $white;
+    color: $blue-dark;
+
+    .mat-option {
+        color: $blue-dark;
+
+        &.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+            background-color: $white;
+            color: $blue-dark;
+        }
+
+        &:hover {
+            background: #bfcdd944;
+        }
+    }
+}
+
+.mat-calendar {
+    background-color: $blue-dark;
+}
+
+.mat-chip.mat-standard-chip {
+    background-color: $blue-medium;
+    font-size: 16px;
 }

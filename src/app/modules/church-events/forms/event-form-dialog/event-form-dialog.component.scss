@@ -1,0 +1,61 @@
+@import "design-styles.scss";
+
+.mat-dialog-title {
+    display: flex;
+    align-items: center;
+
+    .title {
+        margin: 0;
+        flex: 1;
+        font-size: 28px;
+    }
+
+    button {
+        padding: 0;
+        min-width: 36px;
+        height: 36px;
+        font-size: 24px;
+        margin-left: 30px;
+        margin-top: -10px;
+        margin-right: -10px;
+        color: $white;
+
+        ::ng-deep .mat-button-wrapper {
+            filter: brightness(10); // fix for ios
+        }
+    }
+}
+
+.mat-dialog-content {
+    margin: 0px -24px;
+    max-height: 85vh;
+    padding: 0;
+
+    .wrapper {
+        background-color: $white;
+        color: $blue-dark;
+        padding: 24px;
+    }
+}
+
+.mat-dialog-action {
+    margin: 0px -24px -24px;
+
+    .buttons-wrapper {
+        background-color: $white;
+        color: $blue-dark;
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        padding: 0 24px 24px;
+
+        ::ng-deep .mat-button-wrapper {
+            font-size: 1rem;
+        }
+
+        ::ng-deep .mat-flat-button.mat-primary.mat-button-disabled {
+            background-color: $gray-light;
+            color: $white;
+        }
+    }
+}

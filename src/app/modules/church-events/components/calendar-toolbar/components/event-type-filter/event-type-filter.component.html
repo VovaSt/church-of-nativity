@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <div class="title">
+        <b>Фільтр по типу</b>
+    </div>
+
+    <div class="filters">
+        <div class="filter all">
+            <input
+                type="checkbox"
+                id="all"
+                name="all"
+                [checked]="allTypesAreShown$ | async"
+                [indeterminate]="areTypesShownPartly$ | async"
+                (change)="checkAllTypes()"
+                [ngStyle]="{'accent-color': '#2f4659'}"
+            />
+            <label for="all">всі події</label>
+        </div>
+
+        <div class="filter" *ngFor="let item of typeFilter$ | async">
+            <input
+                type="checkbox"
+                id="{{item.type}}"
+                name="{{item.type}}"
+                [checked]="item.show"
+                (change)="checkTypes(item.type)"
+                [ngStyle]="{'accent-color': item.color}"
+            />
+            <label for="{{item.type}}">{{item.label}}</label>
+        </div>
+    </div>
+</div>
+

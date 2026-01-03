@@ -1,0 +1,39 @@
+<div class="header">
+    <div class="week-controls">
+        <button
+            class="week-btn"
+            (click)="getPreviosWeek()"
+        >
+            <img src="assets/images/arrow.svg" alt="Налаштування">
+        </button>
+
+        <div class="title">
+            <div>{{title[0]}}</div>
+            <span class="divider">&#8211;</span>
+            <div>{{title[1]}}</div>
+        </div>
+
+        <button
+            class="week-btn"
+            (click)="getNextWeek()"
+        >
+            <img src="assets/images/arrow.svg" class="reverse" alt="Налаштування">
+        </button>
+    </div>
+
+    <div class="button-controls">
+        <button
+            class="control-btn"
+            (click)="addEvent()"
+        >
+            <mat-icon [ngStyle]="{'font-weight': 'bold'}">add</mat-icon>
+        </button>
+
+        <button
+            class="control-btn"
+            (click)="toggleToolbar()"
+        >
+            <mat-icon [class.rotated]="toolbarIsShown$ | async">settings</mat-icon>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+@import "design-styles.scss";
+
+.toolbar {
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $gray-light;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0 auto 10px;
+    position: relative;
+    top: -5px;
+    overflow: hidden;
+    height: 0px;
+    transition: height 300ms ease-out;
+
+    &.show {
+        height: 240px;
+    }
+}

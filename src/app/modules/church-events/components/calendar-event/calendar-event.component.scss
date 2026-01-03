@@ -1,0 +1,55 @@
+@import "design-styles.scss";
+
+.event {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid $gray-light;
+    display: flex;
+    align-items: center;
+
+    .left-part {
+        flex: 0 0 60px;
+        padding-right: 12px;
+        text-align: center;
+    }
+
+    .main-part {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            column-gap: 8px;
+
+            .car-icon {
+                margin: -3px 0;
+                cursor: default;
+            }
+        }
+    }
+
+    .right-part {
+        padding-left: 3px;
+
+        mat-icon {
+            cursor: pointer;
+            padding: 6px 0;
+            height: 36px;
+            transition: transform 0.3s;
+
+            &.rotated {
+                transform: scale(-1, -1);
+            }
+        }
+
+
+    }
+}
+

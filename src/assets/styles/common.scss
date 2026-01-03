@@ -103,3 +103,8 @@ a {
         overflow-y: hidden !important;
     }
 } // fix ios bug
+
+.mat-snack-bar-container:has(app-error-message) {
+    background-color: #ff8888;
+    min-width: 200px;
+}

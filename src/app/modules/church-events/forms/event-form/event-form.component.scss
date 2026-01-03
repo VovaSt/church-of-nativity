@@ -1,0 +1,32 @@
+@import "design-styles.scss";
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+
+    .form-group {
+        width: 100%;
+
+        @media screen and (min-width: 600px) {
+            &.small {
+                width: calc(50% - 10px);
+            }
+        }
+    }
+
+    mat-button-toggle-group {
+        height: 50px;
+        margin-bottom: 15px;
+    }
+
+    .frequency {
+        .mat-button-toggle {
+            width: 50%;
+        }
+    }
+
+    .days .mat-button-toggle ::ng-deep .mat-button-toggle-button .mat-button-toggle-label-content {
+        padding: 0 9.75px;
+    }
+}

@@ -1,0 +1,149 @@
+@import "design-styles.scss";
+
+$red: #E2717F;
+$bg-gray: #f0f3f6;
+
+.body {
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    .day {
+        display: flex;
+        align-items: center;
+        border: 1px solid $gray-light;
+        border-top: none;
+        padding: 10px;
+        min-height: 60px;
+
+        .label {
+            width: 50px;
+            margin-right: 10px;
+            text-align: center;
+            font-weight: bolder;
+            position: relative;
+
+            .number {
+                color: $blue-dark;
+            }
+
+            .name {
+                color: $blue-medium;
+            }
+
+            @media screen and (max-width: 400px) {
+                & {
+                    width: 40px;
+                }
+            }
+        }
+
+        &:first-child {
+            border-top: 1px solid $gray-light;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        &[data-day='пн'] {
+            border-top: 1px solid $gray-light;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        &[data-day='нд'] {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            margin-bottom: 10px;
+
+            .label .name {
+                color: $red;
+            }
+        }
+
+        &[data-day='сб'],
+        &[data-day='нд'] {
+            background-color: $bg-gray;
+        }
+
+        &.today {
+            .label{
+                .number,
+                .name {
+                    color: $white;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -7px;
+                    left: 0px;
+                    background: $blue-medium;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    z-index: 0;
+
+                    @media screen and (max-width: 400px) {
+                        & {
+                            top: -5px;
+                            left: -5px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+
+            .event {
+                padding: 8px 12px;
+                border-radius: 5px;
+                border: 1px solid $gray-light;
+                display: flex;
+                align-items: center;
+
+                .left-part {
+                    flex: 0 0 60px;
+                    padding-right: 12px;
+                    text-align: center;
+                }
+
+                .main-part {
+                    flex: 1;
+
+                    .name {
+                        font-weight: 500;
+                        margin-bottom: 3px;
+                    }
+
+                    .row {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 3px;
+                    }
+                }
+
+                .right-part {
+                    padding-left: 3px;
+
+                    mat-icon {
+                        cursor: default;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<div mat-dialog-title>
+    <h3 class="title">{{title}}</h3>
+    <button mat-button mat-dialog-close>&#10006;</button>
+</div>
+
+<div mat-dialog-content>
+    <div class="wrapper">
+        <app-event-form #form [data]="data"></app-event-form>
+    </div>
+</div>
+
+<div mat-dialog-action class="mat-dialog-action">
+    <div class="buttons-wrapper">
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="save()"
+            [disabled]="isDisabled$ | async"
+        >
+            Зберегти
+        </button>
+    </div>
+</div>
+
