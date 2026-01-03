@@ -1,0 +1,60 @@
+@import "design-styles.scss";
+
+.wrapper {
+    padding: 50px 0;
+
+    &.header {
+        background-color: $gray-medium;
+        padding: 130px 0 50px;
+
+        ._page-title {
+            color: $white;
+            text-align: center;
+        }
+
+        ._text-medium {
+            color: $white;
+        }
+    }
+
+    .content-n {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        form {
+            display: flex;
+            column-gap: 20px;
+            width: 100%;
+
+            .search {
+                flex: 4;
+            }
+
+            .topics {
+                flex: 2
+            }
+        }
+
+        .songs-container {
+            padding-top: 30px;
+            max-width: 600px;
+
+            .song {
+                cursor: pointer;
+            }
+
+            .song-text {
+
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .wrapper {
+        padding: 0;
+
+    }
+}

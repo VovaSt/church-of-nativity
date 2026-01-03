@@ -1,0 +1,63 @@
+<div class="wrapper header">
+    <div class="text">
+        <h1 class="_page-title">
+            Пісні загального співу
+        </h1>
+    </div>
+    <div class="content-w ltr">
+
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="content-n">
+        <form
+        [formGroup]="songsForm"
+        (ngSubmit)="onSubmitForm()"
+    >
+        <mat-form-field class="form-group search">
+            <input
+                matInput
+                type="search"
+                id="search"
+                name="search"
+                formControlName="search"
+                autocomplete="off"
+                placeholder="Шукати пісню..."
+            >
+        </mat-form-field>
+
+        <mat-form-field class="form-group topics">
+            <mat-select
+                type="text"
+                id="topics"
+                name="topics"
+                formControlName="topics"
+            >
+                <mat-option *ngFor="let topic of topics" [value]="topic">
+                    {{topic}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+    <div class="songs-container">
+        <ng-container *ngIf="!(selectedSong$ | async)">
+            <div class="song _text-small" *ngFor="let song of songs" (click)="selectSong(song)">
+                {{song.index}}.
+                {{song.title}}
+            </div>
+        </ng-container>
+
+        <div *ngIf="(selectedSong$ | async) as song">
+            <button (click)="clearSelectedSong()">Повернутись до списку</button>
+            <h3>
+                {{song.index}}.
+                {{song.title}}
+            </h3>
+            <div class="song-text" [innerHTML]="song.html"></div>
+        </div>
+    </div>
+
+    </div>
+</div>

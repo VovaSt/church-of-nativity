@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/war-2022/war.module').then((m) => m.WarModule),
     },
     {
+        path: 'songs',
+        loadChildren: () => import('./modules/songs/songs.module').then((m) => m.SongsModule),
+    },
+    {
         path: '**',
         redirectTo: '',
     },
