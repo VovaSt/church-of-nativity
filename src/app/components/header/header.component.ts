@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     @ViewChild('langsMenuTrigger') langsMenuTrigger: MatMenuTrigger;
 
     @HostListener('window:scroll', ['$event']) onscroll() {
-        if (this.router.url === "/events") {
+        if (this.router.url === "/events" || this.router.url === "/songs") {
             this.navbarColor = true;
             return;
         }
@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
 
         this.router.events.subscribe((val) => {
             if (val instanceof NavigationEnd) {
-                this.navbarColor = val.url === "/events";
+                this.navbarColor = val.url === "/events" || val.url === "/songs";
                 this.cd.markForCheck();
             }
         });

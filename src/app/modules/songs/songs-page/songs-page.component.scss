@@ -1,60 +1,124 @@
 @import "design-styles.scss";
 
-.wrapper {
-    padding: 50px 0;
+._sub-page-bg {
+    background-color: transparent;
+    height: 87px;
 
-    &.header {
-        background-color: $gray-medium;
-        padding: 130px 0 50px;
-
-        ._page-title {
-            color: $white;
-            text-align: center;
-        }
-
-        ._text-medium {
-            color: $white;
-        }
+    @media screen and (max-width: 1024px) {
+        height: 75px;
     }
+
+    @media screen and (max-width: 425px) {
+        height: 68px;
+    }
+}
+
+.wrapper {
+    padding: 30px 15px;
 
     .content-n {
         display: flex;
         flex-direction: column;
         align-items: center;
 
+        ._title {
+            color: $blue-dark;
+        }
+
         form {
             display: flex;
+            flex-wrap: wrap;
+            align-items: center;
             column-gap: 20px;
             width: 100%;
 
             .search {
-                flex: 4;
+                flex: 3;
+            }
+
+            .is-deep-search {
+                ::ng-deep .mat-checkbox-frame {
+                    border-color: $blue-medium !important;
+                }
+
+                &.mat-checkbox-checked {
+                    ::ng-deep .mat-checkbox-background {
+                        background-color: $blue-medium !important;
+                    }
+                }
             }
 
             .topics {
-                flex: 2
+                flex: 2;
             }
         }
 
         .songs-container {
-            padding-top: 30px;
-            max-width: 600px;
+            padding: 30px 15px;
+            width: 100%;
+            color: $blue-dark;
 
             .song {
+                padding: 3px 0;
                 cursor: pointer;
+
+                &:hover {
+                    color: $blue-medium;
+                }
+            }
+
+            .controls {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                &.header {
+                    padding-bottom: 10px;
+                    justify-content: flex-start;
+                }
+
+                .control-btn {
+                    border: none;
+                    background-color: transparent;
+                    color: $blue-dark;
+                    cursor: pointer;
+                }
+
+                .back-btn {
+                    margin-right: 10px;
+                }
+            }
+
+            .song-title {
+                font-size: 24px;
             }
 
             .song-text {
-
+                font-size: 24px;
             }
         }
     }
 }
 
-
 @media screen and (max-width: 800px) {
     .wrapper {
-        padding: 0;
+        padding: 0 15px;
 
+        .content-n ._title {
+            font-size: 25px;
+            margin: 0.8em 0;
+        }
+
+        .content-n .songs-container {
+            padding: 15px 0;
+
+            .song-title {
+                font-size: 18px;
+            }
+
+            .song-text {
+                font-size: 18px;
+            }
+        }
     }
 }

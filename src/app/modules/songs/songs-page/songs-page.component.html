@@ -1,63 +1,59 @@
-<div class="wrapper header">
-    <div class="text">
-        <h1 class="_page-title">
-            Пісні загального співу
-        </h1>
-    </div>
-    <div class="content-w ltr">
-
-    </div>
+<div class="_sub-page-bg">
 </div>
 
 <div class="wrapper">
     <div class="content-n">
-        <form
-        [formGroup]="songsForm"
-        (ngSubmit)="onSubmitForm()"
-    >
-        <mat-form-field class="form-group search">
-            <input
-                matInput
-                type="search"
-                id="search"
-                name="search"
-                formControlName="search"
-                autocomplete="off"
-                placeholder="Шукати пісню..."
-            >
-        </mat-form-field>
-
-        <mat-form-field class="form-group topics">
-            <mat-select
-                type="text"
-                id="topics"
-                name="topics"
-                formControlName="topics"
-            >
-                <mat-option *ngFor="let topic of topics" [value]="topic">
-                    {{topic}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form>
-
-    <div class="songs-container">
         <ng-container *ngIf="!(selectedSong$ | async)">
-            <div class="song _text-small" *ngFor="let song of songs" (click)="selectSong(song)">
-                {{song.index}}.
-                {{song.title}}
-            </div>
+            <h3 class="_title">Пісні загального співу</h3>
+            <form [formGroup]="songsForm" (ngSubmit)="onSubmitForm()">
+                <mat-form-field class="form-group search">
+                    <input matInput type="search" id="search" name="search" formControlName="search" autocomplete="off"
+                        placeholder="Шукати пісню...">
+                </mat-form-field>
+
+                <mat-checkbox class="is-deep-search" formControlName="isDeepSearch">Шукати в тексті</mat-checkbox >
+
+                <mat-form-field class="form-group topics">
+                    <mat-select type="text" id="topics" name="topics" formControlName="topics">
+                        <mat-option *ngFor="let topic of topics" [value]="topic">
+                            {{topic}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
         </ng-container>
 
-        <div *ngIf="(selectedSong$ | async) as song">
-            <button (click)="clearSelectedSong()">Повернутись до списку</button>
-            <h3>
-                {{song.index}}.
-                {{song.title}}
-            </h3>
-            <div class="song-text" [innerHTML]="song.html"></div>
+        <div class="songs-container">
+            <ng-container *ngIf="!(selectedSong$ | async)">
+                <div class="song _text-small" *ngFor="let song of filteredSongs$ | async" (click)="selectSong(song)">
+                    {{song.index}}.
+                    {{song.title}}
+                </div>
+            </ng-container>
+
+            <div *ngIf="(selectedSong$ | async) as song">
+                <div class="controls header">
+                    <button class="control-btn back-btn" (click)="clearSelectedSong()">
+                        <img src="assets/images/arrow.svg" alt="Налаштування">
+                    </button>
+                    <b class="song-title">
+                        {{song.index}}.
+                        {{song.title}}
+                    </b>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" (click)="decreaseFontSize()">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    <button class="control-btn" (click)="increaseFontSize()">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                </div>
+
+                <div #songText class="song-text" [innerHTML]="song.html"></div>
+            </div>
         </div>
-    </div>
 
     </div>
 </div>

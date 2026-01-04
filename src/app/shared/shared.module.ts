@@ -26,6 +26,7 @@ import { ChipsInputComponent } from './components/chips-input/chips-input.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
         MatFormFieldModule,
         MatAutocompleteModule,
         MatChipsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     exports: [
         MatButtonToggleModule,
@@ -63,6 +64,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
         MatTooltipModule,
         MatInputModule,
         MatSelectModule,
+        MatCheckboxModule,
         MatDatepickerModule,
         MatFormFieldModule,
         MatAutocompleteModule,
