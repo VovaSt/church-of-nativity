@@ -55,8 +55,8 @@
 
         .songs-container {
             padding: 30px 15px;
-            width: 100%;
             color: $blue-dark;
+            align-self: flex-start;
 
             .song {
                 padding: 3px 0;
