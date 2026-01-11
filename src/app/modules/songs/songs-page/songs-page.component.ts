@@ -26,7 +26,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     @ViewChild('songText', {static: false}) songText: ElementRef;
 
     ngOnInit(): void {
-        this.modulesManager.setActiveModule('');
+        this.modulesManager.setActiveModule('songs');
         marked.setOptions({ breaks: true });
 
         this.songsForm = new FormGroup({
@@ -61,6 +61,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     selectSong(song) {
         const data = { ...song, html: marked(song.text) }
         this.selectedSong$.next(data);
+        window.scrollTo(0, 0);
     }
 
     clearSelectedSong() {
