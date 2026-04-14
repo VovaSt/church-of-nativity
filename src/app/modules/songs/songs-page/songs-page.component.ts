@@ -2,9 +2,9 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModulesManagerService } from 'src/app/core/services/module-manager.service';
 import { SONGS, TOPICS } from '../songs';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { marked } from 'marked';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 
 
 @Component({
@@ -20,7 +20,10 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     topics = ['Всі тематики', ...TOPICS];
     filteredSongs$ = new BehaviorSubject(SONGS);
     selectedSong$ = new BehaviorSubject(null);
+    favoriteSongs$ = new BehaviorSubject(JSON.parse(localStorage.getItem('favoriteSongs')) || []);
+    songList$ = new Observable();
     fontSize = 18;
+    scrollPosition = 0;
     subscription: Subscription;
 
     @ViewChild('songText', {static: false}) songText: ElementRef;
@@ -54,11 +57,19 @@ export class SongsPageComponent implements OnInit, OnDestroy {
 
                 this.filteredSongs$.next(list);
             });
+
+        this.songList$ = combineLatest([this.filteredSongs$, this.favoriteSongs$])
+            .pipe(map(([filteredSongs, favoriteSongs]) => {
+                return filteredSongs.map(song => {
+                    return {...song, isFavorite: favoriteSongs.includes(song.title)}
+                })
+            }))
     }
 
     onSubmitForm() { }
 
     selectSong(song) {
+        this.scrollPosition = window.pageYOffset;
         const data = { ...song, html: marked(song.text) }
         this.selectedSong$.next(data);
         window.scrollTo(0, 0);
@@ -66,6 +77,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
 
     clearSelectedSong() {
         this.selectedSong$.next(null);
+        setTimeout(() => window.scrollTo(0, this.scrollPosition), 0);
     }
 
     increaseFontSize() {
@@ -80,6 +92,20 @@ export class SongsPageComponent implements OnInit, OnDestroy {
         if (currFontSize > 12) {
             this.songText.nativeElement.style.fontSize = `${currFontSize - 1}px`;
         }
+    }
+
+    favorite(title: string) {
+        const isFavoriteSong = this.favoriteSongs$.value.includes(title);
+        if (isFavoriteSong) {
+            this.favoriteSongs$.next(
+                [...this.favoriteSongs$.value].filter(song => song !== title)
+            );
+        } else {
+            this.favoriteSongs$.next([...this.favoriteSongs$.value, title]);
+        }
+
+        this.selectedSong$.next({...this.selectedSong$.value, isFavorite: !isFavoriteSong});
+        localStorage.setItem('favoriteSongs', JSON.stringify(this.favoriteSongs$.value));
     }
 
     private getFontSize(): number {

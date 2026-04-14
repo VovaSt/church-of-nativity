@@ -25,30 +25,39 @@
 
         <div class="songs-container">
             <ng-container *ngIf="!(selectedSong$ | async)">
-                <div class="song _text-medium" *ngFor="let song of filteredSongs$ | async" (click)="selectSong(song)">
-                    {{song.index}}.
-                    {{song.title}}
+                <div class="song _text-medium" *ngFor="let song of songList$ | async" (click)="selectSong(song)">
+                    <span>{{song.index}}.</span>
+                    &nbsp;
+                    <span class="name">{{song.title}}</span>
+                    <mat-icon *ngIf="song.isFavorite">favorite</mat-icon>
                 </div>
             </ng-container>
 
             <div *ngIf="(selectedSong$ | async) as song">
-                <div class="controls header">
+                <div class="controls">
                     <button class="control-btn back-btn" (click)="clearSelectedSong()">
-                        <img src="assets/images/arrow.svg" alt="Налаштування">
+                        <img src="assets/images/arrow.svg" alt="Назад">
                     </button>
+
+                    <button class="control-btn" (click)="decreaseFontSize()">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    <button class="control-btn space" (click)="increaseFontSize()">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                    <button *ngIf="song.isFavorite" class="control-btn" (click)="favorite(song.title)">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button *ngIf="!song.isFavorite" class="control-btn" (click)="favorite(song.title)">
+                        <mat-icon>favorite_border</mat-icon>
+                    </button>
+                </div>
+
+                <div class="controls header">
                     <b class="song-title">
                         {{song.index}}.
                         {{song.title}}
                     </b>
-                </div>
-
-                <div class="controls">
-                    <button class="control-btn" (click)="decreaseFontSize()">
-                        <mat-icon>remove_circle_outline</mat-icon>
-                    </button>
-                    <button class="control-btn" (click)="increaseFontSize()">
-                        <mat-icon>add_circle_outline</mat-icon>
-                    </button>
                 </div>
 
                 <div #songText class="song-text" [innerHTML]="song.html"></div>
