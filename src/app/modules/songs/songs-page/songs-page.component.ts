@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModulesManagerService } from 'src/app/core/services/module-manager.service';
-import { SONGS, TOPICS } from '../songs';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { TOPICS } from '../songs';
+import { Observable, Subscription } from 'rxjs';
 import { marked } from 'marked';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SongsService } from 'src/app/core/services/songs.service';
 
 
@@ -19,7 +19,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     topics = ['Всі тематики', ...TOPICS];
     selectedSong$ = new Observable();
     songList$ = new Observable();
-    fontSize = 18;
+    fontSize = 22;
     scrollPosition = 0;
     subscription!: Subscription;
     subscription2!: Subscription;
@@ -63,8 +63,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
 
     selectSong(song: any) {
         this.scrollPosition = window.pageYOffset;
-        const data = { ...song, html: marked(song.text) }
-        this.songsService.setSelectedSong(data);
+        this.songsService.setSelectedSong(song);
         window.scrollTo(0, 0);
     }
 
@@ -74,28 +73,15 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     }
 
     increaseFontSize() {
-        const currFontSize = this.getFontSize();
-        if (currFontSize < 52) {
-            this.songText.nativeElement.style.fontSize = `${currFontSize + 1}px`;
-        }
+        this.fontSize++;
     }
 
     decreaseFontSize() {
-        const currFontSize = this.getFontSize();
-        if (currFontSize > 12) {
-            this.songText.nativeElement.style.fontSize = `${currFontSize - 1}px`;
-        }
+        this.fontSize--;
     }
 
     favorite(title: string) {
         this.songsService.setFavoriteStatusForSong(title);
-    }
-
-    private getFontSize(): number {
-        const element = this.songText.nativeElement;
-        const computedStyle = window.getComputedStyle(element);
-        const fontSize = computedStyle.getPropertyValue('font-size');
-        return parseFloat(fontSize);
     }
 
     ngOnDestroy(): void {

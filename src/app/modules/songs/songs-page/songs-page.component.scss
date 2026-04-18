@@ -82,16 +82,14 @@
 
                 .back-btn {
                     margin-right: auto;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
                 }
             }
 
-            .song-title {
-                font-size: 24px;
-            }
-
             .song-text {
-                font-size: 24px;
-                padding: 0px 15px 0px 0px;
+                padding: 15px 20px;
             }
 
             .no-songs {
@@ -120,15 +118,6 @@
 
         .content-n .songs-container {
             padding: 15px 0;
-
-            .song-title {
-                font-size: 18px;
-                line-height: 25px;
-            }
-
-            .song-text {
-                font-size: 18px;
-            }
         }
     }
 }

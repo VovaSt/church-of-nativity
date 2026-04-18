@@ -35,6 +35,7 @@
                 <div class="controls">
                     <button class="control-btn back-btn" (click)="clearSelectedSong()">
                         <img src="assets/images/arrow.svg" alt="Назад">
+                        <span class="_text-small">до списку</span>
                     </button>
 
                     <button class="control-btn" (click)="decreaseFontSize()">
@@ -51,7 +52,7 @@
                     </button>
                 </div>
 
-                <div #songText class="song-text" [innerHTML]="song.html"></div>
+                <div #songText class="song-text" [innerHTML]="song.text" [style.fontSize.px]="fontSize"></div>
             </div>
         </div>
     </div>

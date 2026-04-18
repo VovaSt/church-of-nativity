@@ -38,9 +38,8 @@ export class SongsService {
                         let favoriteCondition = true;
 
                         if (filters.search) {
-                            const key = filters.search.replace(/[\.,?!-:;]/g, "").toLowerCase();
+                            const key = filters.search.toLowerCase();
                             searchCondition = song.index.toString().includes(key) ||
-                            song.title.replace(/[\.,?!-:;]/g, "").toLowerCase().includes(key) ||
                             song.text.replace(/[\.,?!-:;]/g, "").toLowerCase().includes(key);
                         }
 
