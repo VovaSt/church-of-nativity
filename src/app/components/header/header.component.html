@@ -1,5 +1,5 @@
-<nav class="site-header" (scroll)="onscroll()" [ngClass]="navbarColor ? 'color' : 'noColor'">
-    <div class="content">
+<nav class="site-header" [class.songs-header]="songs" (scroll)="onscroll()" [ngClass]="navbarColor ? 'color' : 'noColor'">
+    <div *ngIf="!songs" class="content">
         <ng-container *ngIf="!showBackArrow; else backArrow">
             <div class="mobile-menu">
                 <div class="linkTrigger" #linksMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="linksMenu">
@@ -49,5 +49,19 @@
                 </ng-container>
             </mat-menu>
         </div>
+    </div>
+
+    <div *ngIf="songs" class="content-n">
+        <div class="logo-container" routerLink="">
+            <img class="logo" src="assets/images/Logo.svg" alt="logo">
+        </div>
+        <h1 *ngIf="songs" class="songs-title">
+            Псалмоспіви
+            <ng-container *ngIf="selectedSong$ | async as song">{{song.index}}</ng-container>
+        </h1>
+        <ng-container *ngIf="!(selectedSong$ | async)">
+            <mat-icon *ngIf="favoriteSongsAreShown$ | async" class="favorite-icon" (click)="showFavoriteSongs(false)">favorite</mat-icon>
+            <mat-icon *ngIf="!(favoriteSongsAreShown$ | async)" class="favorite-icon" (click)="showFavoriteSongs(true)">favorite_border</mat-icon>
+        </ng-container>
     </div>
 </nav>

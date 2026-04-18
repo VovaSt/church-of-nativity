@@ -1,7 +1,7 @@
 import { LandingHeader, landingHeaderType } from './../../core/constants/landing';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, Renderer2, Self, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { distinctUntilChanged, filter, throttleTime } from 'rxjs/operators';
 
 import { ModulesManagerService } from '../../core/services/module-manager.service';
@@ -9,6 +9,7 @@ import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Language } from '../../core/enums/language.enum';
 import { LanguageService } from '../../core/services/language.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { SongsService } from 'src/app/core/services/songs.service';
 
 @Component({
     selector: 'app-header',
@@ -20,14 +21,17 @@ import { NavigationEnd, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
     public languages = Object.values(Language);
-    public currentLang: Language;
-    headerLinks: LandingHeader[];
-    private pagesLinks;
+    public currentLang!: Language;
+    headerLinks!: LandingHeader[];
+    private pagesLinks!: NodeListOf<Element>;
     navbarColor = false;
     showBackArrow = false;
+    songs = false;
+    favoriteSongsAreShown$: Observable<boolean>;
+    selectedSong$: Observable<any>;
 
-    @ViewChild('linksMenuTrigger') linksMenuTrigger: MatMenuTrigger;
-    @ViewChild('langsMenuTrigger') langsMenuTrigger: MatMenuTrigger;
+    @ViewChild('linksMenuTrigger') linksMenuTrigger!: MatMenuTrigger;
+    @ViewChild('langsMenuTrigger') langsMenuTrigger!: MatMenuTrigger;
 
     @HostListener('window:scroll', ['$event']) onscroll() {
         if (this.router.url === "/events" || this.router.url === "/songs") {
@@ -49,7 +53,11 @@ export class HeaderComponent implements OnInit {
         private cd: ChangeDetectorRef,
         private langService: LanguageService,
         private router: Router,
-    ) { }
+        private songsService: SongsService
+    ) {
+        this.favoriteSongsAreShown$ = songsService.favoriteSongsAreShown$;
+        this.selectedSong$ = songsService.selectedSong$;
+    }
 
     ngOnInit() {
         this.unsub.subs = this.modulesManager.getActiveModule$
@@ -70,6 +78,7 @@ export class HeaderComponent implements OnInit {
         this.router.events.subscribe((val) => {
             if (val instanceof NavigationEnd) {
                 this.navbarColor = val.url === "/events" || val.url === "/songs";
+                this.songs = this.router.url === "/songs";
                 this.cd.markForCheck();
             }
         });
@@ -134,5 +143,9 @@ export class HeaderComponent implements OnInit {
         } else {
             this.router.navigate(['/']);
         }
+    }
+
+    showFavoriteSongs(value: boolean) {
+        this.songsService.showFavoriteSongs(value);
     }
 }

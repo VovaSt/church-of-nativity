@@ -1,17 +1,11 @@
-<div class="_sub-page-bg">
-</div>
-
 <div class="wrapper">
     <div class="content-n">
         <ng-container *ngIf="!(selectedSong$ | async)">
-            <h3 class="_title">Пісні загального співу</h3>
             <form [formGroup]="songsForm" (ngSubmit)="onSubmitForm()">
                 <mat-form-field class="form-group search">
                     <input matInput type="search" id="search" name="search" formControlName="search" autocomplete="off"
                         placeholder="Шукати пісню...">
                 </mat-form-field>
-
-                <mat-checkbox class="is-deep-search" formControlName="isDeepSearch">Шукати в тексті</mat-checkbox >
 
                 <mat-form-field class="form-group topics">
                     <mat-select type="text" id="topics" name="topics" formControlName="topics">
@@ -30,6 +24,10 @@
                     &nbsp;
                     <span class="name">{{song.title}}</span>
                     <mat-icon *ngIf="song.isFavorite">favorite</mat-icon>
+                </div>
+
+                <div *ngIf="!(songList$ | async)?.length" class="no-songs">
+                    Немає пісень по заданим параметрам
                 </div>
             </ng-container>
 
@@ -51,13 +49,6 @@
                     <button *ngIf="!song.isFavorite" class="control-btn" (click)="favorite(song.title)">
                         <mat-icon>favorite_border</mat-icon>
                     </button>
-                </div>
-
-                <div class="controls header">
-                    <b class="song-title">
-                        {{song.index}}.
-                        {{song.title}}
-                    </b>
                 </div>
 
                 <div #songText class="song-text" [innerHTML]="song.html"></div>

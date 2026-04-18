@@ -154,6 +154,40 @@
             transition: 0.2s linear;
         }
     }
+
+    &.songs-header {
+        background: $blue-medium;
+        position: relative;
+        padding: 0px;
+
+        .content-n {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                height: 50px;
+                padding-top: 10px;
+                margin-right: 10px;
+            }
+
+            .songs-title {
+                color: #fff;
+                font-family: "Roboto Slab";
+                font-style: normal;
+                font-weight: lighter;
+                line-height: 50px;
+                font-size: 30px;
+                margin: 0;
+            }
+
+            .favorite-icon {
+                color: #fff;
+                margin-left: auto;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 1025px) {
