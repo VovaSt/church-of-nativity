@@ -96,6 +96,10 @@ export class SongsService {
     }
 
     private getFavoriteSongs(): string[] {
-        return JSON.parse(localStorage.getItem("favoriteSongs") || '') || [];
+        const favoriteSongs = localStorage.getItem("favoriteSongs");
+        if (favoriteSongs) {
+            return JSON.parse(favoriteSongs);
+        }
+        return [];
     }
 }
