@@ -44,6 +44,12 @@
                     <button class="control-btn space" (click)="increaseFontSize()">
                         <mat-icon>add_circle_outline</mat-icon>
                     </button>
+                    <button *ngIf="!align" class="control-btn space" (click)="alignText(true)">
+                        <mat-icon>format_align_justify</mat-icon>
+                    </button>
+                    <button *ngIf="align" class="control-btn space" (click)="alignText(false)">
+                        <mat-icon>format_align_left</mat-icon>
+                    </button>
                     <button *ngIf="song.isFavorite" class="control-btn" (click)="favorite(song.title)">
                         <mat-icon>favorite</mat-icon>
                     </button>
@@ -52,7 +58,9 @@
                     </button>
                 </div>
 
-                <div #songText class="song-text" [innerHTML]="song.text" [style.fontSize.px]="fontSize"></div>
+                <p *ngIf="song.oldTitle" class="old-title">{{song.oldTitle}}</p>
+
+                <div #songText class="song-text" [innerHTML]="song.text | replaceBr:align" [style.fontSize.px]="fontSize"></div>
             </div>
         </div>
     </div>

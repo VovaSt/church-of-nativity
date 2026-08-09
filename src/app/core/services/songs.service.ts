@@ -15,7 +15,7 @@ export class SongsService {
     private favoriteSongs$ = new BehaviorSubject<string[]>([]);
     public songList$ = new Observable();
 
-    private _selectedSong$ = new BehaviorSubject(null);
+    private _selectedSong$ = new BehaviorSubject<any>(null);
     public selectedSong$ = this._selectedSong$.asObservable();
 
     constructor() {
@@ -40,6 +40,7 @@ export class SongsService {
                         if (filters.search) {
                             const key = filters.search.toLowerCase();
                             searchCondition = song.index.toString().includes(key) ||
+                            song.oldTitle.replace(/[\.,?!-:;]/g, "").toLowerCase().includes(key) ||
                             song.text.replace(/[\.,?!-:;]/g, "").toLowerCase().includes(key);
                         }
 
@@ -80,6 +81,18 @@ export class SongsService {
 
     public setSelectedSong(song: any) {
         this._selectedSong$.next(song);
+    }
+
+    public setSelectedSongById(id: number) {
+        if (id) {
+            const song = SONGS.find(s => s.index === id);
+            if (song) {
+                this._selectedSong$.next({
+                    ...song,
+                    isFavorite: this.favoriteSongs$.getValue().includes(song.title)
+                });
+            }
+        }
     }
 
     private getFavoriteSongs(): string[] {

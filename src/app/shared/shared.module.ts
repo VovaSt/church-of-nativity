@@ -27,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReplaceBrPipe } from 'src/app/shared/pipes/replaceBr.pipe';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         ImageLoaderDirective,
         DonateModalComponent,
         ChipsInputComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        ReplaceBrPipe
     ],
     imports: [
         CommonModule,
@@ -77,7 +79,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         ChipsInputComponent,
         ErrorMessageComponent,
 
-        ImageLoaderDirective
+        ImageLoaderDirective,
+
+        ReplaceBrPipe
     ],
 })
 export class SharedModule {}

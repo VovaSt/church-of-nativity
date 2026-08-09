@@ -71,7 +71,7 @@
                     touch-action: manipulation;
 
                     &.space {
-                        margin-right: 16px;
+                        margin-right: 12px;
                     }
 
                     .mat-icon {
@@ -89,8 +89,16 @@
                 }
             }
 
+            .old-title {
+                padding: 5px 20px 5px;
+                margin: 10px 0 0;
+                color: $gray-medium;
+                background-color: #bfcdd933;
+                font-style: italic;
+            }
+
             .song-text {
-                padding: 15px 20px;
+                padding: 0px 20px;
             }
 
             .no-songs {

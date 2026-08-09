@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { marked } from 'marked';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SongsService } from 'src/app/core/services/songs.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class SongsPageComponent implements OnInit, OnDestroy {
     songList$ = new Observable();
     fontSize = 22;
     scrollPosition = 0;
+    align = false;
     subscription!: Subscription;
     subscription2!: Subscription;
 
@@ -28,7 +30,9 @@ export class SongsPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private modulesManager: ModulesManagerService,
-        private songsService: SongsService
+        private songsService: SongsService,
+        private router: Router,
+        private route: ActivatedRoute
     ) {
         this.songList$ = this.songsService.songList$;
         this.selectedSong$ = this.songsService.selectedSong$;
@@ -42,6 +46,10 @@ export class SongsPageComponent implements OnInit, OnDestroy {
             search: new FormControl(''),
             topics: new FormControl('Всі тематики'),
         });
+
+        if (this.route.snapshot.queryParams['id']) {
+            this.songsService.setSelectedSongById(+this.route.snapshot.queryParams['id']);
+        }
 
         this.subscription = this.songsForm.valueChanges
             .pipe(debounceTime(300))
@@ -65,11 +73,21 @@ export class SongsPageComponent implements OnInit, OnDestroy {
         this.scrollPosition = window.pageYOffset;
         this.songsService.setSelectedSong(song);
         window.scrollTo(0, 0);
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { id: song.index },
+            queryParamsHandling: 'merge'
+        });
     }
 
     clearSelectedSong() {
         this.songsService.setSelectedSong(null);
         setTimeout(() => window.scrollTo(0, this.scrollPosition), 0);
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { id: undefined },
+            queryParamsHandling: 'merge'
+        });
     }
 
     increaseFontSize() {
@@ -82,6 +100,10 @@ export class SongsPageComponent implements OnInit, OnDestroy {
 
     favorite(title: string) {
         this.songsService.setFavoriteStatusForSong(title);
+    }
+
+    alignText(shouldAlign: boolean) {
+        this.align = shouldAlign;
     }
 
     ngOnDestroy(): void {
